@@ -1056,7 +1056,7 @@ func createForm(ctx *model.Context, pageNr, pageCount int, wm *model.Watermark, 
 				"Subtype": types.Name("Form"),
 				"BBox":    bbox.Array(),
 				"Matrix":  types.NewNumberArray(1, 0, 0, 1, 0, 0),
-				"OC":      *wm.Ocg,
+				//"OC":      *wm.Ocg,
 			},
 		),
 		Content:        b.Bytes(),
@@ -1152,7 +1152,8 @@ func wmContent(wm *model.Watermark, gsID, xoID string) []byte {
 	p3 := m.Transform(types.Point{X: wm.Bb.UR.X, Y: wm.Bb.UR.Y})
 	p4 := m.Transform(types.Point{X: wm.Bb.LL.X, Y: wm.Bb.UR.Y})
 	wm.BbTrans = types.QuadLiteral{P1: p1, P2: p2, P3: p3, P4: p4}
-	insertOCG := " /Artifact <</Subtype /Watermark /Type /Pagination >>BDC q %.5f %.5f %.5f %.5f %.5f %.5f cm /%s gs /%s Do Q EMC "
+	//insertOCG := " /Artifact <</Subtype /Watermark /Type /Pagination >>BDC q %.5f %.5f %.5f %.5f %.5f %.5f cm /%s gs /%s Do Q EMC "
+	insertOCG := " q %.5f %.5f %.5f %.5f %.5f %.5f cm /%s gs /%s Do Q "
 	var b bytes.Buffer
 	fmt.Fprintf(&b, insertOCG, m[0][0], m[0][1], m[1][0], m[1][1], m[2][0], m[2][1], gsID, xoID)
 	return b.Bytes()
@@ -1444,7 +1445,7 @@ func createResourcesForPageNr(
 	ocgIndRef, extGStateIndRef *types.IndirectRef,
 	onTop bool, opacity float64) error {
 
-	wm.Ocg = ocgIndRef
+	//wm.Ocg = ocgIndRef
 	wm.ExtGState = extGStateIndRef
 	wm.OnTop = onTop
 	wm.Opacity = opacity
@@ -1646,9 +1647,9 @@ func AddWatermarks(ctx *model.Context, selectedPages types.IntSet, wm *model.Wat
 		log.Debug.Printf("AddWatermarks wm:\n%s\n", wm)
 	}
 	var err error
-	if wm.Ocg, err = prepareOCPropertiesInRoot(ctx, wm.OnTop); err != nil {
-		return err
-	}
+	//if wm.Ocg, err = prepareOCPropertiesInRoot(ctx, wm.OnTop); err != nil {
+	//	return err
+	//}
 
 	if err = createResourcesForWM(ctx, wm); err != nil {
 		return err
