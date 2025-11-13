@@ -797,79 +797,80 @@ func ensureOCG(ctx *model.Context, onTop bool) (*types.IndirectRef, error) {
 }
 
 func prepareOCPropertiesInRoot(ctx *model.Context, onTop bool) (*types.IndirectRef, error) {
-	rootDict, err := ctx.Catalog()
-	if err != nil {
-		return nil, err
-	}
-
-	if o, ok := rootDict.Find("OCProperties"); ok {
-
-		d, err := ctx.DereferenceDict(o)
-		if err != nil {
-			return nil, err
-		}
-
-		o, found := d.Find("OCGs")
-		if found {
-			a, err := ctx.DereferenceArray(o)
-			if err != nil {
-				return nil, errCorruptOCGs
-			}
-			if len(a) > 0 {
-				ir, ok := a[0].(types.IndirectRef)
-				if !ok {
-					return nil, errCorruptOCGs
-				}
-				return &ir, nil
-			}
-		}
-	}
-
-	ir, err := ensureOCG(ctx, onTop)
-	if err != nil {
-		return nil, err
-	}
-
-	optionalContentConfigDict := types.Dict(
-		map[string]types.Object{
-			"AS": types.Array{
-				types.Dict(
-					map[string]types.Object{
-						"Category": types.NewNameArray("View"),
-						"Event":    types.Name("View"),
-						"OCGs":     types.Array{*ir},
-					},
-				),
-				types.Dict(
-					map[string]types.Object{
-						"Category": types.NewNameArray("Print"),
-						"Event":    types.Name("Print"),
-						"OCGs":     types.Array{*ir},
-					},
-				),
-				types.Dict(
-					map[string]types.Object{
-						"Category": types.NewNameArray("Export"),
-						"Event":    types.Name("Export"),
-						"OCGs":     types.Array{*ir},
-					},
-				),
-			},
-			"ON":       types.Array{*ir},
-			"Order":    types.Array{},
-			"RBGroups": types.Array{},
-		},
-	)
-
-	d := types.Dict(
-		map[string]types.Object{
-			"OCGs": types.Array{*ir},
-			"D":    optionalContentConfigDict,
-		},
-	)
-
-	rootDict.Update("OCProperties", d)
-	return ir, nil
+	//rootDict, err := ctx.Catalog()
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//if o, ok := rootDict.Find("OCProperties"); ok {
+	//
+	//	d, err := ctx.DereferenceDict(o)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//
+	//	o, found := d.Find("OCGs")
+	//	if found {
+	//		a, err := ctx.DereferenceArray(o)
+	//		if err != nil {
+	//			return nil, errCorruptOCGs
+	//		}
+	//		if len(a) > 0 {
+	//			ir, ok := a[0].(types.IndirectRef)
+	//			if !ok {
+	//				return nil, errCorruptOCGs
+	//			}
+	//			return &ir, nil
+	//		}
+	//	}
+	//}
+	//
+	//ir, err := ensureOCG(ctx, onTop)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//optionalContentConfigDict := types.Dict(
+	//	map[string]types.Object{
+	//		"AS": types.Array{
+	//			types.Dict(
+	//				map[string]types.Object{
+	//					"Category": types.NewNameArray("View"),
+	//					"Event":    types.Name("View"),
+	//					"OCGs":     types.Array{*ir},
+	//				},
+	//			),
+	//			types.Dict(
+	//				map[string]types.Object{
+	//					"Category": types.NewNameArray("Print"),
+	//					"Event":    types.Name("Print"),
+	//					"OCGs":     types.Array{*ir},
+	//				},
+	//			),
+	//			types.Dict(
+	//				map[string]types.Object{
+	//					"Category": types.NewNameArray("Export"),
+	//					"Event":    types.Name("Export"),
+	//					"OCGs":     types.Array{*ir},
+	//				},
+	//			),
+	//		},
+	//		"ON":       types.Array{*ir},
+	//		"Order":    types.Array{},
+	//		"RBGroups": types.Array{},
+	//	},
+	//)
+	//
+	//d := types.Dict(
+	//	map[string]types.Object{
+	//		"OCGs": types.Array{*ir},
+	//		"D":    optionalContentConfigDict,
+	//	},
+	//)
+	//
+	//rootDict.Update("OCProperties", d)
+	//return ir, nil
+	return nil, nil
 }
 
 func createFormResDict(ctx *model.Context, pageNr int, wm *model.Watermark) (*types.IndirectRef, error) {
