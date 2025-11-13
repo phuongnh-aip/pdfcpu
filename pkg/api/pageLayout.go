@@ -20,8 +20,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
-	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/types"
+	"github.com/phuongnh-aip/pdfcpu/pkg/pdfcpu/model"
+	"github.com/phuongnh-aip/pdfcpu/pkg/pdfcpu/types"
 	"github.com/pkg/errors"
 )
 

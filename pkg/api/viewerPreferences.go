@@ -23,8 +23,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu"
-	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
+	"github.com/phuongnh-aip/pdfcpu/pkg/pdfcpu"
+	"github.com/phuongnh-aip/pdfcpu/pkg/pdfcpu/model"
 	"github.com/pkg/errors"
 )
 

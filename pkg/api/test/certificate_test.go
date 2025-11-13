@@ -19,7 +19,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pdfcpu/pdfcpu/pkg/api"
+	"github.com/phuongnh-aip/pdfcpu/pkg/api"
 )
 
 func TestListCertificates(t *testing.T) {
